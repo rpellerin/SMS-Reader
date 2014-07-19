@@ -1,0 +1,10 @@
+<resources>
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/ActionBar</item>
+    </style>
+    
+    <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+    	<item name="android:background">#fcab02</item>
+    	<item name="android:icon">@drawable/ic</item>
+	</style>
+</resources>
