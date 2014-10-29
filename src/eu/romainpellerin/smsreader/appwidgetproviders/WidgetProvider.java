@@ -1,4 +1,4 @@
-package eu.romainpellerin.smsreader;
+package eu.romainpellerin.smsreader.appwidgetproviders;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.RemoteViews;
+import eu.romainpellerin.smsreader.R;
 
 public class WidgetProvider extends AppWidgetProvider {
 

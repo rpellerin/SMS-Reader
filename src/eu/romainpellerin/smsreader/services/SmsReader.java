@@ -1,4 +1,4 @@
-package eu.romainpellerin.smsreader;
+package eu.romainpellerin.smsreader.services;
 
 import java.util.HashMap;
 
@@ -91,7 +91,6 @@ public class SmsReader extends Service {
 		return START_REDELIVER_INTENT;
 	}
 
-
 	private void speakout(String text) {
 		audioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 		tts.speak(text, TextToSpeech.QUEUE_ADD, hm);
@@ -119,7 +118,7 @@ public class SmsReader extends Service {
 	public void onDestroy() {
 		super.onDestroy();
 		if (tts != null) {
-			tts.shutdown(); // Détruit définitivement
+			tts.shutdown(); // Dï¿½truit dï¿½finitivement
 		}
 	}
 }

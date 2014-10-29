@@ -38,4 +38,24 @@
         android:layout_marginTop="18dp"
         android:text="Read SMS only when headset is plugged" />
 
+    <Switch
+        android:id="@+id/play_on_plugin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headphones"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="Play music on headset plugin?"
+        android:textOff="No"
+        android:textOn="Yes" />
+    
+    <EditText
+        android:id="@+id/playlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/play_on_plugin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:hint="Playlist to play (may be left blank)" />
+    
 </RelativeLayout>

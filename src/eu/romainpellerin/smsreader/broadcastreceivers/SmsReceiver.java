@@ -1,5 +1,6 @@
-package eu.romainpellerin.smsreader;
+package eu.romainpellerin.smsreader.broadcastreceivers;
 
+import eu.romainpellerin.smsreader.services.SmsReader;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
