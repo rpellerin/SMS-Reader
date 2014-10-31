@@ -28,11 +28,12 @@ public class SmsReader extends Service {
 	
 	@Override
 	public IBinder onBind(Intent arg0) {
-		return null;
+		return null; // We don't bind
 	}
 
 	@Override
 	public void onCreate() {
+		//Log.e("SmsReader","onCreate");
 		hm = new HashMap<String, String>();
 		hm.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "utterance");
 		hd = new Handler();
@@ -47,6 +48,7 @@ public class SmsReader extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		super.onStartCommand(intent, flags, startId);
 		Bundle extras = intent.getExtras();
 		if (extras != null) {
 			Object[] messages = (Object[]) extras.get("pdus");
@@ -72,8 +74,7 @@ public class SmsReader extends Service {
 						tts.setOnUtteranceProgressListener(new UtteranceProgressListener() { // Listener
 							@Override
 							public void onDone(final String utteranceId) {
-								audioManager.abandonAudioFocus(null);
-								hd.postDelayed(r, 2000);
+								hd.postDelayed(r, 1000);
 							}
 							@Override
 							public void onError(String utteranceId) {}
@@ -96,6 +97,11 @@ public class SmsReader extends Service {
 		tts.speak(text, TextToSpeech.QUEUE_ADD, hm);
 	}
 
+	/**
+	 * Get contact name from contacts list
+	 * @param phoneNumber The number of the contact
+	 * @return The name or the phone if the person has not been found
+	 */
 	private String getContactName(String phoneNumber) {
 		ContentResolver cr = getContentResolver();
 		Uri uri = Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
@@ -116,9 +122,8 @@ public class SmsReader extends Service {
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
-		if (tts != null) {
-			tts.shutdown(); // D�truit d�finitivement
-		}
+		//Log.e("SmsReader","onDestroy");
+		if (audioManager != null) audioManager.abandonAudioFocus(null);
+		if (tts != null) tts.shutdown(); // Détruit définitivement
 	}
 }
