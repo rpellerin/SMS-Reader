@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
 	private Switch enable_all;
 	private CheckBox headphones;
 	private Switch play_on_plugin;
+	private Switch play_on_bluetooth;
 	private EditText playlist;
 	
     @Override
@@ -37,6 +38,7 @@ public class MainActivity extends Activity {
         enable_all = (Switch) findViewById(R.id.enable_all);
         headphones = (CheckBox) findViewById(R.id.headphones);
         play_on_plugin = (Switch) findViewById(R.id.play_on_plugin);
+        play_on_bluetooth = (Switch) findViewById(R.id.play_on_bluetooth);
         playlist = (EditText) findViewById(R.id.playlist);
         
         enable_all.setChecked(prefs.getBoolean("enable_all", true));
@@ -58,6 +60,13 @@ public class MainActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,	boolean isChecked) {
 				prefs.edit().putBoolean("play_on_plugin", isChecked).commit();
+			}
+		});
+        play_on_bluetooth.setChecked(prefs.getBoolean("play_on_bluetooth", false));
+        play_on_bluetooth.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,	boolean isChecked) {
+				prefs.edit().putBoolean("play_on_bluetooth", isChecked).commit();
 			}
 		});
         playlist.setText(prefs.getString("playlist", ""));
@@ -89,8 +98,11 @@ public class MainActivity extends Activity {
 			        AppWidgetManager manager = AppWidgetManager.getInstance(MainActivity.this);
 			        manager.updateAppWidget(thisWidget, view);
 				}
-				else if (key.equals("play_on_plugin")) {
-					playlist.setEnabled(sharedPreferences.getBoolean(key, false));
+				else if (key.equals("play_on_plugin") || key.equals("play_on_bluetooth")) {
+					playlist.setEnabled(
+							sharedPreferences.getBoolean("play_on_plugin", false)
+							||
+							sharedPreferences.getBoolean("play_on_bluetooth", false));
 				}
 			}
         });
@@ -109,6 +121,7 @@ public class MainActivity extends Activity {
     	enable_all.setChecked(prefs.getBoolean("enable_all", true));
     	headphones.setEnabled(prefs.getBoolean("enable_all", true));
     	play_on_plugin.setChecked(prefs.getBoolean("play_on_plugin", false));
-    	playlist.setEnabled(prefs.getBoolean("play_on_plugin", false));
+    	play_on_bluetooth.setChecked(prefs.getBoolean("play_on_bluetooth", false));
+    	playlist.setEnabled(prefs.getBoolean("play_on_plugin", false) || prefs.getBoolean("play_on_bluetooth", false));
     }
 }
