@@ -10,6 +10,8 @@ import eu.romainpellerin.smsreader.others.MusicPlayer;
 
 public class HeadsetPlugReceiver extends BroadcastReceiver {
 	
+	private static long last_unplugged = 0;
+	
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if(intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
@@ -17,9 +19,12 @@ public class HeadsetPlugReceiver extends BroadcastReceiver {
             switch(state) {
                 case(0):
                     Log.d("ok", "Headset unplugged");
+                	last_unplugged = System.currentTimeMillis() / 1000;
                     break;
                 case(1):
                     Log.d("ok", "Headset plugged");
+                	if ((System.currentTimeMillis() / 1000) - 2 <= last_unplugged) // Only if unplugged since more than 2 seconds
+                		return;
                 	// If no call at the moment, let's play music :)
 	                TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 	                SharedPreferences prefs = context.getSharedPreferences("eu.romainpellerin.smsreader", Context.MODE_PRIVATE);
