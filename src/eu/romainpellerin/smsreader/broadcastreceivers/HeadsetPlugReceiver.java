@@ -10,7 +10,7 @@ import eu.romainpellerin.smsreader.others.MusicPlayer;
 
 public class HeadsetPlugReceiver extends BroadcastReceiver {
 	
-	private static long last_unplugged = 0;
+	private static long last_unplugged = System.currentTimeMillis();
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
